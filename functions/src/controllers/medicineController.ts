@@ -3,12 +3,13 @@ import * as admin from 'firebase-admin';
 import { Medicine } from '../models/medicine';
 
 export const get = functions.https.onRequest(async (req, res) => {
-  let medicine = new Medicine({id:req.query.id});
-  medicine.fill().then(()=>{
-    res.status(200).send(medicine);
-  },()=>{
-    res.status(404);
-  })
+  let medicine = new Medicine();
+  medicine.getById(req.query.id)
+    .then(() => {
+      res.status(200).send(medicine);
+    }).catch(() => {
+      res.status(404)
+    })
 });
 
 export const search = functions.https.onRequest(async (req, res) => {
@@ -18,14 +19,13 @@ export const search = functions.https.onRequest(async (req, res) => {
                                    .startAt(text).endAt(text+"\uf8ff")
                                    .once('value')
                                    .then((snapshots) => {
-                                     snapshots.forEach(function(child: any){
-                                       let output = child.val();
-                                       output['id'] = child.key;
-                                       medicines.push(output);
+                                     snapshots.forEach(function(snap: any){
+                                      let medicine = new Medicine();
+                                      medicine.fill(snap)
+                                      medicines.push(medicine);
                                      })
-                                     console.log(medicines);
                                      res.status(200).send(medicines);
-                                   },()=>{
+                                   }).catch(()=>{
                                      res.status(404)
                                    })
 })

@@ -9,10 +9,10 @@ export const listener = functions.https.onRequest(async (req, res) => {
 });
 
 
-export const getAllDistricts = functions.https.onRequest((req, res) => {
-     var dist = new District();
-     dist.getAllDistricts().then((ref: any) => {
-        res.redirect(303, ref);
-     })
+// export const getAllDistricts = functions.https.onRequest((req, res) => {
+//      var dist = new District();
+//      dist.getAllDistricts().then((ref: any) => {
+//         res.redirect(303, ref);
+//      })
     
-});
+// });

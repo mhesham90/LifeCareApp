@@ -3,8 +3,19 @@ import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
 import * as TestModule from './controllers/testController';
 import * as MedicineController from './controllers/medicineController';
+import * as DistrictController from './controllers/districtController';
 export const test = TestModule.listener;
-export const districts= TestModule.getAllDistricts;
+export const districts= DistrictController.getAllDistricts
 export const medicine = MedicineController.get;
 export const search = MedicineController.search;
+
+
+// import * as inside from 'point-in-polygon';
+// var polygon = [ [ 0, 0 ], [ 2, 0 ], [ 1, 2 ], [ 0, 1 ] ];
+//
+// console.dir([
+//     inside([ 1.5, 0.9 ], polygon),
+//     inside([ 4.9, 1.2 ], polygon),
+//     inside([ 1.8, 1.1 ], polygon)
+// ]);
 
