@@ -1,16 +1,17 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin';
 admin.initializeApp(functions.config().firebase);
-
 import * as TestModule from './controllers/testController';
 import * as MedicineController from './controllers/medicineController';
-
 import * as PharmacyController from './controllers/pharmacyController';
+import * as DistrictController from './controllers/districtController';
 
 export const test = TestModule.listener;
+export const districts= DistrictController.getAllDistricts
 export const medicine = MedicineController.get;
 export const search = MedicineController.search;
 export const getPharmacy = PharmacyController.get;
+
 
 
 // import * as inside from 'point-in-polygon';
