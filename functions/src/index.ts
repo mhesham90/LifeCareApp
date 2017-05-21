@@ -5,9 +5,13 @@ admin.initializeApp(functions.config().firebase);
 import * as TestModule from './controllers/testController';
 import * as MedicineController from './controllers/medicineController';
 
+import * as PharmacyController from './controllers/pharmacyController';
+
 export const test = TestModule.listener;
 export const medicine = MedicineController.get;
 export const search = MedicineController.search;
+export const getPharmacy = PharmacyController.get;
+
 
 // import * as inside from 'point-in-polygon';
 // var polygon = [ [ 0, 0 ], [ 2, 0 ], [ 1, 2 ], [ 0, 1 ] ];
