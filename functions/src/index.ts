@@ -8,3 +8,12 @@ import * as MedicineController from './controllers/medicineController';
 export const test = TestModule.listener;
 export const medicine = MedicineController.get;
 export const search = MedicineController.search;
+
+// import * as inside from 'point-in-polygon';
+// var polygon = [ [ 0, 0 ], [ 2, 0 ], [ 1, 2 ], [ 0, 1 ] ];
+//
+// console.dir([
+//     inside([ 1.5, 0.9 ], polygon),
+//     inside([ 4.9, 1.2 ], polygon),
+//     inside([ 1.8, 1.1 ], polygon)
+// ]);

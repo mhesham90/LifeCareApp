@@ -12,10 +12,11 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const medicine_1 = require("../models/medicine");
 exports.get = functions.https.onRequest((req, res) => __awaiter(this, void 0, void 0, function* () {
-    let medicine = new medicine_1.Medicine({ id: req.query.id });
-    medicine.fill().then(() => {
+    let medicine = new medicine_1.Medicine();
+    medicine.getById(req.query.id)
+        .then(() => {
         res.status(200).send(medicine);
-    }, () => {
+    }).catch(() => {
         res.status(404);
     });
 }));
@@ -26,14 +27,13 @@ exports.search = functions.https.onRequest((req, res) => __awaiter(this, void 0,
         .startAt(text).endAt(text + "\uf8ff")
         .once('value')
         .then((snapshots) => {
-        snapshots.forEach(function (child) {
-            let output = child.val();
-            output['id'] = child.key;
-            medicines.push(output);
+        snapshots.forEach(function (snap) {
+            let medicine = new medicine_1.Medicine();
+            medicine.fill(snap);
+            medicines.push(medicine);
         });
-        console.log(medicines);
         res.status(200).send(medicines);
-    }, () => {
+    }).catch(() => {
         res.status(404);
     });
 }));

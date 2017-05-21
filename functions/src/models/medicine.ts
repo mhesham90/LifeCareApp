@@ -11,26 +11,21 @@ export class Medicine{
   unit_price: number;
   pharmacies:{};
 
-  constructor(
-      fields?: {
-        id?: string,
-        name?: string,
-        imageURL?: string,
-        category?: string,
-        type?: string,
-        num_units?: number,
-        unit_price?: number
-      }) {
-      if (fields) Object.assign(this, fields);
+  constructor() {
+
   }
 
-  fill(){
+  fill(snapshot: any){
+    this.id = snapshot.key;
+    let myObj = snapshot.val();
+    this.name = myObj.name;
+    this.category = myObj.category;
+  }
+
+  getById(id: any){
       return new Promise((resolve, reject)=>{
-        if(!this.id) reject()
-        let a = admin.database().ref('medicine/'+this.id).once("value").then((snapshot) => {
-          let myMedicine = snapshot.val();
-          this.name = myMedicine.name;
-          this.category = myMedicine.category;
+        let a = admin.database().ref('medicine/'+id).once("value").then((snapshot) => {
+          this.fill(snapshot)
           resolve()
         },error => reject());
       })
