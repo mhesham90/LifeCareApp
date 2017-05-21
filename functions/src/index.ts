@@ -6,3 +6,4 @@ import * as TestModule from './controllers/testController';
 
 
 export const test = TestModule.listener;
+export const districts= TestModule.getAllDistricts;
