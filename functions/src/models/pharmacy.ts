@@ -6,12 +6,12 @@ export class Pharmacy{
   name: string;
   imageURL: string;
   telephone: string;
-  loaction: [number, number]; // [long,lat]
+  loaction: any; // {long:'...', lat:'...'}
   district: string;
-  delivery_areas: string[];
-  medicine: {}[];
-  delivery_start_time: string;
-  delivery_end_time: string;
+  delivery_areas: any; // fill array from snapshot
+  medicine: any;  // fill array with medicine
+  delivery_start_time: string;  //24 hr string
+  delivery_end_time: string;  //24 hr string
 
   fill(snapshot: any){
     Object.assign(this, snapshot.val());
