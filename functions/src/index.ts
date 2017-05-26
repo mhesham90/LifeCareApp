@@ -8,7 +8,6 @@ admin.initializeApp(functions.config().firebase);
 import PharmacyRouter from './controllers/pharmacyController';
 import DistrictRouter from './controllers/districtController';
 import MidicineRouter from './controllers/medicineController';
-
 declare module 'express' {
   interface Request {
     user: any
@@ -36,5 +35,6 @@ const authenticate = (req: express.Request, res: express.Response, next: express
 app.use("/pharmacy",PharmacyRouter);
 app.use("/medicine",MidicineRouter);
 app.use("/district",DistrictRouter);
+
 
 export const api = functions.https.onRequest(app);

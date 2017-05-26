@@ -1,9 +1,14 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+<<<<<<< HEAD
 import District from '../models/districts';
 import { Router } from 'express';
 // import inside from 'point-in-polygon';
 // var inside = require('point-in-polygon');
+=======
+import  District  from '../models/districts';
+import { Router } from 'express';
+>>>>>>> be32c634dc2e78a65dc9fbaaf24f22b8227f2983
 
 const districtRouter: Router = Router();
 
