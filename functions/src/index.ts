@@ -6,6 +6,8 @@ admin.initializeApp(functions.config().firebase);
 
 // import controllers
 import PharmacyRouter from './controllers/pharmacyController';
+import DistrictRouter from './controllers/districtController';
+import MidicineRouter from './controllers/medicineController';
 
 declare module 'express' {
   interface Request {
@@ -30,24 +32,9 @@ const authenticate = (req: express.Request, res: express.Response, next: express
 };
 //app.use(authenticate);    //...use authenticate middleware
 
-
 // define routes
 app.use("/pharmacy",PharmacyRouter);
-
-
-
-// export const districts= DistrictController.getAllDistricts
-// export const medicine = MedicineController.get;
-// export const search = MedicineController.search;
-// export const getPharmacy = PharmacyController.get;
+app.use("/medicine",MidicineRouter);
+app.use("/district",DistrictRouter);
 
 export const api = functions.https.onRequest(app);
-
-// import * as inside from 'point-in-polygon';
-// var polygon = [ [ 0, 0 ], [ 2, 0 ], [ 1, 2 ], [ 0, 1 ] ];
-//
-// console.dir([
-//     inside([ 1.5, 0.9 ], polygon),
-//     inside([ 4.9, 1.2 ], polygon),
-//     inside([ 1.8, 1.1 ], polygon)
-// ]);

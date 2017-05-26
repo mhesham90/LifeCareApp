@@ -12,6 +12,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
+    "@types/point-in-polygon": "0.0.2",
     "ts-loader": "^2.0.3",
     "webpack-node-externals": "^1.6.0"
   },

@@ -1,8 +1,9 @@
 import * as admin from 'firebase-admin'
-export default class District 
-{   
+var inside = require('point-in-polygon');
+export default class District
+{
     id :string
-    name  :string; 
+    name  :string;
     points :string;
 
 
@@ -17,15 +18,43 @@ export default class District
         console.log(snapshot)
         this.name = myObj.name;
         this.points=myObj.points
-        
+
     }
 
-//     getAllDistricts():any{
-//         return  new Promise((resolve, reject)=>{
-//         let a = admin.database().ref('district').once("value").then((snapshot) => {
-//           this.fill(snapshot)
-//           resolve()
-//         },error => reject());
-//       })
-//   }
+    static getAllDistricts(): any{
+        return  new Promise((resolve, reject)=>{
+        let a = admin.database().ref('district').orderByChild('name')
+                                                .once("value")
+                                                .then((snapshots) => {
+                                                    let districts: District[] = [];
+                                                    snapshots.forEach(function(snap: any){
+                                                      let district = new District();
+                                                      district.fill(snap)
+                                                      districts.push(district);
+                                                    })
+                                                    resolve(districts)
+                                                  }, error => reject());
+                                                })
+  }
+
+  static getByLongLat(long: number, lat: number): any{
+    return District.getAllDistricts()
+      .then((districts: any) => {
+        districts.forEach((dist: any) => {
+          let pointsString = dist.points || "";
+          let myPoints = pointsString.split(",");
+          let pointsList: any = [];
+          for (var i=0; i<myPoints.length; i+=2)
+              pointsList.push(myPoints.slice(i,i+2));
+          pointsList = pointsList.map((arr: any) => arr.map(Number))
+          // return pointsList;
+          if(inside([ long, lat ], pointsList)){
+              return dist;
+          }
+        })
+        return new District();
+      }).catch(() => {
+        return new District();
+      })
+  }
 }

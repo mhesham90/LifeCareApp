@@ -1,10 +1,13 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import { Medicine } from '../models/medicine';
+import { Router } from 'express';
 
-export const get = functions.https.onRequest(async (req, res) => {
+const medicineRouter: Router = Router();
+
+medicineRouter.get('/:id', function(req, res, next) {
   let medicine = new Medicine();
-  medicine.getById(req.query.id)
+  medicine.getById(req.params.id)
     .then(() => {
       res.status(200).send(medicine);
     }).catch(() => {
@@ -12,7 +15,8 @@ export const get = functions.https.onRequest(async (req, res) => {
     })
 });
 
-export const search = functions.https.onRequest(async (req, res) => {
+
+medicineRouter.get('/', function(req, res, next) {
   let text = req.query.text;
   let medicines: any = [];
   admin.database().ref('medicine/').orderByChild('name')
@@ -29,3 +33,5 @@ export const search = functions.https.onRequest(async (req, res) => {
                                      res.status(404)
                                    })
 })
+
+export default medicineRouter;
