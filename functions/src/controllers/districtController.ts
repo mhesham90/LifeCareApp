@@ -1,10 +1,11 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import  District  from '../models/districts';
+import { Router } from 'express';
 
+const districtRouter: Router = Router();
 
-export const getAllDistricts = functions.https.onRequest(async (req, res) => {
-  let text = req.query.text;
+districtRouter.get('/', function(req, res, next) {
   let districts: any = [];
   admin.database().ref('district').orderByChild('name')
                                     .once('value')
@@ -20,3 +21,5 @@ export const getAllDistricts = functions.https.onRequest(async (req, res) => {
                                      res.status(404)
                                    })
 })
+
+export default districtRouter;

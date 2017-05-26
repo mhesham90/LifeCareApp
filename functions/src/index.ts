@@ -6,7 +6,7 @@ admin.initializeApp(functions.config().firebase);
 
 // import controllers
 import PharmacyRouter from './controllers/pharmacyController';
-
+import districtRouter from './controllers/districtController';
 declare module 'express' {
   interface Request {
     user: any
@@ -33,7 +33,7 @@ const authenticate = (req: express.Request, res: express.Response, next: express
 
 // define routes
 app.use("/pharmacy",PharmacyRouter);
-
+app.use("/district",districtRouter)
 
 
 // export const districts= DistrictController.getAllDistricts
