@@ -1,5 +1,6 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
+import Pharmacy from './pharmacy';
 
 export default class Medicine{
   id: string;
@@ -45,5 +46,24 @@ export default class Medicine{
                                                   resolve(medicines)
                                               }, error => reject());
                                           })
+  }
+
+  static getPharmaciesByDistrict(id: any, district: any){
+    let pharmacies: any = [];
+    return new Promise((resolve, reject)=>{
+      admin.database().ref("medicine/"+id+"/pharmacies").orderByChild('district')
+            .equalTo(district).once('value')
+            .then((snapshots) => {    //...snapshot has all pharmacies having medicine within district
+              console.log(snapshots.val());
+              snapshots.forEach(function(snapshot: any){
+                if(snapshot.val().quantity > 5){  //...only if medicine quantity is more than 5
+                  let pharmacy = new Pharmacy();
+                  pharmacy.fill(snapshot);
+                  pharmacies.push(pharmacy);
+                }
+              })
+              resolve(pharmacies);
+            }, error => reject());
+    });
   }
 }

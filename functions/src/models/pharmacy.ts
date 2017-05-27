@@ -1,7 +1,7 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 
-export class Pharmacy{
+export default class Pharmacy{
   uid: string;
   name: string;
   imageURL: string;

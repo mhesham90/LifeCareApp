@@ -1,5 +1,3 @@
 .idea
 **/node_modules/*
 /functions/index.js
-/functions/controllers/
-/functions/models/*
