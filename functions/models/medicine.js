@@ -1,11 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = require("firebase-admin");
-var FirebasePaginator = require('firebase-paginator');
-let options = {
-    pageSize: 2,
-    finite: true
-};
+const pharmacy_1 = require("./pharmacy");
 class Medicine {
     constructor() {
     }
@@ -36,6 +32,24 @@ class Medicine {
                     medicines.push(medicine);
                 });
                 resolve(medicines);
+            }, error => reject());
+        });
+    }
+    static getPharmaciesByDistrict(id, district) {
+        let pharmacies = [];
+        return new Promise((resolve, reject) => {
+            admin.database().ref("medicine/" + id + "/pharmacies").orderByChild('district')
+                .equalTo(district).once('value')
+                .then((snapshots) => {
+                console.log(snapshots.val());
+                snapshots.forEach(function (snapshot) {
+                    if (snapshot.val().quantity > 5) {
+                        let pharmacy = new pharmacy_1.default();
+                        pharmacy.fill(snapshot);
+                        pharmacies.push(pharmacy);
+                    }
+                });
+                resolve(pharmacies);
             }, error => reject());
         });
     }

@@ -13,7 +13,6 @@ districtRouter.get('/', function(req, res, next) {
                                       snapshots.forEach(function(snap: any){
                                          let district = new District();
                                          district.fill(snap)
-                                         console.log("district",district)
                                          districts.push(district);
                                      })
                                      res.status(200).send(districts);

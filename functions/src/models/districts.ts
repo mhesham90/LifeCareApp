@@ -7,14 +7,13 @@ export default class District{
 
 
     constructor (){
-      
+
     }
 
     fill(snapshot: any){
 
         this.id = snapshot.key;
         let myObj = snapshot.val();
-        console.log(snapshot)
         this.name = myObj.name;
         this.points=myObj.points
 
