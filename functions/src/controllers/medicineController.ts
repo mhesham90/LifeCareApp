@@ -72,14 +72,4 @@ medicineRouter.get('/:id', function(req, res, next) {
 });
 
 
-medicineRouter.get('/', function(req, res, next) {
-  let text = (req.query.text || '').toLowerCase();
-  Medicine.searchByName(text)
-    .then((medicines) => {
-      res.status(200).send(medicines);
-    }).catch(() => {
-      res.status(404).send("error");
-    })
-})
-
 export default medicineRouter;
