@@ -4,3 +4,4 @@
 /functions/controllers/
 /functions/models/*
 /functions/.env
+/functions/firebase-debug.log

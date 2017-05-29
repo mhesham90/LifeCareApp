@@ -16,7 +16,7 @@ searchRouter.get('/pharmacies/:med_id', function(req, res, next) {
     .then((pharmacies) => {
       res.status(200).send(pharmacies);
     }).catch(() => {
-      res.status(404)
+      res.status(404).send("Error");
     })
   }else{
     District.getByCoords(req.query.long, req.query.lat)
@@ -27,10 +27,10 @@ searchRouter.get('/pharmacies/:med_id', function(req, res, next) {
       .then((pharmacies) => {
         res.status(200).send(pharmacies);
       }).catch(() => {
-        res.status(404)
+        res.status(404).send("Error");
       })
     }).catch(() => {
-      res.status(404)
+      res.status(404).send("Error");
     })
   }
 });

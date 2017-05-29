@@ -14,8 +14,14 @@ class Medicine {
     getById(id) {
         return new Promise((resolve, reject) => {
             let a = admin.database().ref('medicine/' + id).once("value").then((snapshot) => {
-                this.fill(snapshot);
-                resolve();
+                console.log(snapshot.exists());
+                if (snapshot.exists()) {
+                    this.fill(snapshot);
+                    resolve();
+                }
+                else {
+                    reject();
+                }
             }, error => reject());
         });
     }
