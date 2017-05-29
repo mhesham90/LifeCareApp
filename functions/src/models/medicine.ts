@@ -8,7 +8,7 @@ import * as admin from 'firebase-admin'
 import Pharmacy from './pharmacy';
 
 export default class Medicine{
-  id: string;
+  uid: string;
   name: string;
   imageURL: string;
   category: string;   //medicines or accessories
@@ -22,10 +22,8 @@ export default class Medicine{
   }
 
   fill(snapshot: any){
-    this.id = snapshot.key;
-    let myObj = snapshot.val();
-    this.name = myObj.name;
-    this.category = myObj.category;
+    Object.assign(this, snapshot.val());
+    this.uid = snapshot.key;
   }
 
   getById(id: any){
@@ -86,9 +84,9 @@ export default class Medicine{
               console.log(snapshots.val());
               snapshots.forEach(function(snapshot: any){
                 if(snapshot.val().quantity > 5){  //...only if medicine quantity is more than 5
-                  let pharmacy = new Pharmacy();
-                  pharmacy.fill(snapshot);
-                  pharmacies.push(pharmacy);
+                  // let pharmacy = new Pharmacy();
+                  // pharmacy.fill(snapshot);
+                  pharmacies.push(snapshot.key);
                 }
               })
               resolve(pharmacies);

@@ -13,19 +13,42 @@ searchRouter.get('/pharmacies/:med_id', function(req, res, next) {
   if(req.query.district !== "" && req.query.district !== undefined){
     district = req.query.district;
     Medicine.getPharmaciesByDistrict(medicine_id, district)
-    .then((pharmacies) => {
-      res.status(200).send(pharmacies);
+    .then((pharmacies:any) => {
+      console.log(pharmacies);
+      let resArray: any = [];
+      pharmacies.forEach((key:any) => {
+        let pharmacy = new Pharmacy();
+        resArray.push(pharmacy.getById(key))
+      })
+      let myPharmacies: any = [];
+      Promise.all(resArray).then((responses) =>{
+        // responses.map(response => {
+        //   myPharmacies.push(response)
+        // })
+        res.status(200).send(responses)
+      })
     }).catch(() => {
       res.status(404).send("Error");
     })
   }else{
-    District.getByCoords(req.query.long, req.query.lat)
+    District.getByCoords(req.query.gpslong, req.query.gpslat)
     .then((dis: any) => {
       console.log(dis.id);
       district = dis.id;
       Medicine.getPharmaciesByDistrict(medicine_id, district)
-      .then((pharmacies) => {
-        res.status(200).send(pharmacies);
+      .then((pharmacies:any) => {
+        let resArray: any = [];
+        pharmacies.forEach((key:any) => {
+          let pharmacy = new Pharmacy();
+          resArray.push(pharmacy.getById(key))
+        })
+        let myPharmacies: any = [];
+        Promise.all(resArray).then((responses) =>{
+          // responses.map(response => {
+          //   myPharmacies.push(response)
+          // })
+          res.status(200).send(responses)
+        })
       }).catch(() => {
         res.status(404).send("Error");
       })

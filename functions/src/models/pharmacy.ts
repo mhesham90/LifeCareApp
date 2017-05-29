@@ -22,7 +22,7 @@ export default class Pharmacy{
       return new Promise((resolve, reject)=>{
         let a = admin.database().ref('pharmacy/'+id).once("value").then((snapshot) => {
           this.fill(snapshot)
-          resolve()
+          resolve(this)
         },error => reject());
       })
   }
