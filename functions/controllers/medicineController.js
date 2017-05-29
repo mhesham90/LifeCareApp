@@ -13,7 +13,7 @@ medicineRouter.get('/:id', function (req, res, next) {
     });
 });
 medicineRouter.get('/', function (req, res, next) {
-    let text = req.query.text;
+    let text = req.query.text.toLowerCase() || '';
     medicine_1.default.searchByName(text)
         .then((medicines) => {
         res.status(200).send(medicines);

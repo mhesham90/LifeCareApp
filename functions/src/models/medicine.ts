@@ -1,6 +1,10 @@
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
-
+var FirebasePaginator = require('firebase-paginator');
+let options = {
+  pageSize: 2,
+  finite: true
+};
 export default class Medicine{
   id: string;
   name: string;
@@ -46,4 +50,23 @@ export default class Medicine{
                                               }, error => reject());
                                           })
   }
+  // static getAll(size: number){
+  //   let medicines: any = [];
+  //     return new Promise((resolve, reject)=>{
+  //       // let myRef = admin.database().ref('medicine/');
+  //       // let paginator = new FirebasePaginator(myRef, {
+  //       //   pageSize: size,
+  //       //   finite: true
+  //       // });
+  //       let p = admin.database().ref('medicine/').orderByChild('name').limitToFirst(size).startAt('','5').endAt('\uf8ff').once('value')
+  //                        .then((snapshots: any) => {
+  //                            snapshots.forEach(function(snap: any){
+  //                               let medicine = new Medicine();
+  //                               medicine.fill(snap)
+  //                               medicines.push(medicine);
+  //                            })
+  //                           resolve(medicines)
+  //                       });
+  //                   })
+  //   }
 }

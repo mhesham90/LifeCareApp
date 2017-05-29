@@ -1,6 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const admin = require("firebase-admin");
+var FirebasePaginator = require('firebase-paginator');
+let options = {
+    pageSize: 2,
+    finite: true
+};
 class Medicine {
     constructor() {
     }
