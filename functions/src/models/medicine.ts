@@ -42,7 +42,7 @@ export default class Medicine{
   static searchByName(name: any){
     let medicines: any = [];
     return new Promise((resolve, reject)=>{
-      let a = admin.database().ref('medicine/').orderByChild('name')
+      let a = admin.database().ref('medicine/').orderByChild('LCaseName')
                                                .startAt(name).endAt(name+"\uf8ff")
                                                .once('value')
                                                .then((snapshots) => {
